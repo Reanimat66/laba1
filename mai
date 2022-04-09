@@ -51,8 +51,7 @@ void Decode(string text, string key)
     }
 }
 
-
-int main()
+void code()
 {
     string text;
     string key;
@@ -75,11 +74,11 @@ int main()
             cin >> key;
 
             //проверяем что ввели только заглавные английские буквы
-            x = check(text, key); 
+            x = check(text, key);
             if (x == -1)
             {
-                cout << "Error 1";
-                return -1;
+                cout << "Error 1" << endl << endl;
+                break;
             }
 
             cout << "Ciphertext -> ";
@@ -97,19 +96,25 @@ int main()
             x = check(text, key);
             if (x == -1)
             {
-                cout << "Error 1";
-                return -1;
+                cout << "Error 1" << endl << endl;
+                break;
             }
 
             cout << "Original text -> ";
             Decode(text, key); //функция дешифрования текста
             break;
         }
-        cout << endl;
+        cout << endl << endl;
     }
     else
     {
-        cout << "Error 2";
-        return -1;
+        cout << "Error 2" << endl << endl;
     }
+    code();
+}
+
+
+int main()
+{
+    code();
 }
