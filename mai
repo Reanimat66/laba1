@@ -1,0 +1,115 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
+int check(string text, string key)
+{
+    int x = 0;
+    for (int i = 0; i < text.length(); i++)
+    {
+        if (int(text[i]) < 65 || int(text[i]) > 90) x = -1;
+    }
+
+    if (x != -1)
+    {
+        for (int i = 0; i < key.length(); i++)
+        {
+            if (int(key[i]) < 65 || int(key[i]) > 90) x = -1;
+        }
+    }
+    if (x == -1) return -1;
+    else return 0;
+}
+
+
+void Encode(string text, string key)
+{
+    int c, j = 0;
+    for (int i = 0; i < text.length(); i++)
+    {
+        if (j >= key.length()) j = 0;
+        c = int(text[i]-65) + int(key[j]-65);
+        if (c > 26) c = c - 26;
+        cout << char(c + 65);
+        j++;
+    }
+}
+
+
+void Decode(string text, string key)
+{
+    int c, j = 0;
+    for (int i = 0; i < text.length(); i++)
+    {
+        if (j >= key.length()) j = 0;
+        c = int(text[i] - 65) - int(key[j] - 65);
+        if (c < 0) c = c + 26;
+        cout << char(c + 65);
+        j++;
+    }
+}
+
+
+int main()
+{
+    string text;
+    string key;
+    int a = 0, x;
+    cout << "Choose what you want to do: " << endl
+        << "1) Encode the text" << endl
+        << "2) Decode the text" << endl;
+    cin >> a;
+    cout << endl;
+
+    if (a == 1 || a == 2)
+    {
+        switch (a)
+        {
+        case 1:
+            cout << "Vigenere cipher" << endl;
+            cout << "Enter original text -> ";
+            cin >> text;
+            cout << "Enter key -> ";
+            cin >> key;
+
+            //проверяем что ввели только заглавные английские буквы
+            x = check(text, key); 
+            if (x == -1)
+            {
+                cout << "Error 1";
+                return -1;
+            }
+
+            cout << "Ciphertext -> ";
+            Encode(text, key); //функция шифрования текста
+            break;
+
+        case 2:
+            cout << "Vigenere cipher" << endl;
+            cout << "Enter ciphertext -> ";
+            cin >> text;
+            cout << "Enter key -> ";
+            cin >> key;
+
+            //проверяем что ввели только заглавные английские буквы
+            x = check(text, key);
+            if (x == -1)
+            {
+                cout << "Error 1";
+                return -1;
+            }
+
+            cout << "Original text -> ";
+            Decode(text, key); //функция дешифрования текста
+            break;
+        }
+        cout << endl;
+    }
+    else
+    {
+        cout << "Error 2";
+        return -1;
+    }
+}
